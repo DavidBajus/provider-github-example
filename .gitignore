@@ -9,3 +9,7 @@ cover.out
 # ignore IDE folders
 .vscode/
 .idea/
+
+# secret password or tokens
+examples/secret.yaml
+examples/providerconfig/secret.yaml.tmpl
