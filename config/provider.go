@@ -10,7 +10,8 @@ import (
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
 
-	"github.com/DavidBajus/provider-github-example/config/null"
+	"github.com/DavidBajus/provider-github-example/config/repository"
+	"github.com/DavidBajus/provider-github-example/config/branch"
 )
 
 const (
@@ -24,6 +25,7 @@ var providerSchema string
 //go:embed provider-metadata.yaml
 var providerMetadata string
 
+// updating in step 7
 // GetProvider returns provider configuration
 func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
@@ -34,7 +36,8 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		repository.Configure,
+		branch.Configure,
 	} {
 		configure(pc)
 	}
