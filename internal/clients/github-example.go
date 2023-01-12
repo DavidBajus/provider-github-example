@@ -25,6 +25,11 @@ const (
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal github-example credentials as JSON"
+
+	// keys need byt step 5 of tutorial
+	keyBaseURL = "base_url"
+  	keyOwner = "owner"
+  	keyToken = "token"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -67,6 +72,20 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			"username": creds["username"],
 			"password": creds["password"],
 		}*/
+
+		// added in step 5
+		// set provider configuration
+		ps.Configuration = map[string]any{}
+		if v, ok := creds[keyBaseURL]; ok {
+			ps.Configuration[keyBaseURL] = v
+		}
+		if v, ok := creds[keyOwner]; ok {
+			ps.Configuration[keyOwner] = v
+		}
+		if v, ok := creds[keyToken]; ok {
+			ps.Configuration[keyToken] = v
+		}
+
 		return ps, nil
 	}
 }
